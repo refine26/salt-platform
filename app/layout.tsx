@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <header className="nav">
-          <Link href="/" className="logo">SALT<span>.</span></Link>
+          <Link href="/" className="logo" aria-label="SALT home"><img src="/salt-logo.png" alt="SALT: Sports Active Lifestyle Talent" width="955" height="365" /></Link>
           <nav className="links">
             <Link href="/talent">Talent</Link>
             <Link href="/jobs">Jobs</Link>
