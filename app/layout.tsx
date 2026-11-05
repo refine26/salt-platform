@@ -26,6 +26,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Link href="/about">About</Link>
             <ThemeToggle />
             {acc ? <>
+              {acc.role === "admin" && <Link href="/admin" className="admin-link">Admin</Link>}
               <Link href={dashboardFor(acc.role)} className="btn">Dashboard</Link>
               <form action={logout}><button className="link-btn">Sign out</button></form>
             </> : <>

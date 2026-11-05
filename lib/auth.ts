@@ -16,7 +16,12 @@ export async function getAccount(): Promise<Account | null> {
 /** Protect a route by role. Redirects to login or the right dashboard. */
 export async function requireRole(role: Role): Promise<Account> {
   const acc = await getAccount();
-  if (!acc) redirect("/login");
+  if (!acc) {
+    const sb = await supabaseServer();
+    const { data: { user } } = await sb.auth.getUser();
+    // Signed in, but no SALT account row (e.g. user created in Supabase without the setup SQL)
+    redirect(user ? "/login?error=no-account" : "/login");
+  }
   if (acc.role !== role) redirect(dashboardFor(acc.role));
   return acc;
 }
