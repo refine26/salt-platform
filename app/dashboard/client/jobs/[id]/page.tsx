@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import MuxPlayer from "@mux/mux-player-react";
+import Reel from "@/components/Reel";
+import { mediaUrl } from "@/lib/media";
 import { requireRole, fmtHeight } from "@/lib/auth";
 import { supabaseServer } from "@/lib/supabase";
 import { setApplicationStatus, bookTalent } from "@/lib/actions";
@@ -12,9 +13,8 @@ export default async function ManageJob({ params }: { params: Promise<{ id: stri
   const { data: j } = await sb.from("jobs").select("*").eq("id", id).maybeSingle();
   if (!j) notFound();
   const { data: apps } = await sb.from("applications")
-    .select("id, status, cover_note, created_at, media(mux_playback_id, title), talent_profiles(slug, display_name, sport, level, city, state, height_in, day_rate, is_ncaa_active, headshot_path)")
+    .select("id, status, cover_note, created_at, media(mux_playback_id, storage_path, title), talent_profiles(slug, display_name, sport, level, city, state, height_in, day_rate, is_ncaa_active, headshot_path)")
     .eq("job_id", id).neq("status", "withdrawn").order("created_at");
-  const img = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/`;
   const booked = apps?.filter((a) => a.status === "booked").length ?? 0;
 
   const statusBtn = (a: any, status: string, label: string) => (
@@ -35,13 +35,13 @@ export default async function ManageJob({ params }: { params: Promise<{ id: stri
       <div className="applicants">
         {apps?.map((a: any) => { const t = a.talent_profiles; return (
           <article key={a.id} className="applicant">
-            <div className="thumb" style={t?.headshot_path ? { backgroundImage: `url(${img}${t.headshot_path})` } : undefined} />
+            <div className="thumb" style={t?.headshot_path ? { backgroundImage: `url(${mediaUrl(t.headshot_path)})` } : undefined} />
             <div className="info">
               <h3><Link href={`/talent/${t?.slug}`}>{t?.display_name}</Link> <span className={`pill ${a.status}`}>{a.status}</span></h3>
               <p className="hint">{[t?.sport, t?.level, fmtHeight(t?.height_in), [t?.city, t?.state].filter(Boolean).join(", ")].filter(Boolean).join(" · ")}
                 {t?.day_rate && ` · $${t.day_rate}/day`}{t?.is_ncaa_active && " · NCAA"}</p>
               {a.cover_note && <p>{a.cover_note}</p>}
-              {a.media?.mux_playback_id && <MuxPlayer playbackId={a.media.mux_playback_id} streamType="on-demand" style={{ maxWidth: 420 }} />}
+              {(a.media?.mux_playback_id || a.media?.storage_path) && <Reel playbackId={a.media.mux_playback_id} src={a.media.storage_path} title={a.media.title} style={{ maxWidth: 420 }} />}
               <div className="row">
                 {a.status === "applied" && statusBtn(a, "shortlisted", "Shortlist")}
                 {a.status !== "booked" && a.status !== "declined" && statusBtn(a, "declined", "Pass")}

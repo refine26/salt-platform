@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import MuxPlayer from "@mux/mux-player-react";
+import Reel from "@/components/Reel";
+import { mediaUrl } from "@/lib/media";
 import { supabaseServer } from "@/lib/supabase";
 import { fmtHeight } from "@/lib/auth";
 
@@ -12,7 +13,6 @@ export default async function TalentProfile({ params }: { params: Promise<{ slug
     .select("id, kind, title, storage_path, mux_playback_id")
     .eq("owner_id", p.id).eq("status", "ready").order("sort_order");
 
-  const img = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/`;
   const photos = media?.filter((m) => m.kind === "photo") ?? [];
   const videos = media?.filter((m) => m.kind === "video") ?? [];
   const age = p.birth_year ? new Date().getFullYear() - p.birth_year : null;
@@ -25,7 +25,7 @@ export default async function TalentProfile({ params }: { params: Promise<{ slug
   return (
     <section className="profile">
       <div className="profile-head">
-        <div className="headshot" style={p.headshot_path ? { backgroundImage: `url(${img}${p.headshot_path})` } : undefined} />
+        <div className="headshot" style={p.headshot_path ? { backgroundImage: `url(${mediaUrl(p.headshot_path)})` } : undefined} />
         <div>
           <p className="eyebrow">{[p.sport, p.position, p.level].filter(Boolean).join(" · ")}</p>
           <h1>{p.display_name}</h1>
@@ -49,12 +49,12 @@ export default async function TalentProfile({ params }: { params: Promise<{ slug
 
       {videos.length > 0 && <><h2>Reels</h2>
         <div className="videos">{videos.map((v) => (
-          <figure key={v.id}><MuxPlayer playbackId={v.mux_playback_id!} streamType="on-demand" metadata={{ video_title: v.title ?? "" }} />
+          <figure key={v.id}><Reel playbackId={v.mux_playback_id} src={v.storage_path} title={v.title} />
             <figcaption>{v.title}</figcaption></figure>))}
         </div></>}
 
       {photos.length > 0 && <><h2>Photos</h2>
-        <div className="photos">{photos.map((m) => <img key={m.id} src={img + m.storage_path} alt={`${p.display_name}`} loading="lazy" />)}</div></>}
+        <div className="photos">{photos.map((m) => <img key={m.id} src={mediaUrl(m.storage_path)} alt={`${p.display_name}`} loading="lazy" />)}</div></>}
     </section>
   );
 }

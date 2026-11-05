@@ -4,6 +4,7 @@ import { supabaseServer } from "@/lib/supabase";
 import { saveTalentProfile, deleteMedia, setHeadshot, withdrawApplication } from "@/lib/actions";
 import VideoUploader from "@/components/VideoUploader";
 import PhotoUploader from "@/components/PhotoUploader";
+import { mediaUrl } from "@/lib/media";
 
 export default async function TalentDashboard() {
   const acc = await requireRole("talent");
@@ -14,7 +15,6 @@ export default async function TalentDashboard() {
     sb.from("applications").select("id, status, created_at, jobs(id, title, companies(name))").eq("talent_id", acc.id).order("created_at", { ascending: false }).limit(50),
     sb.from("bookings").select("id, shoot_date, call_time, location, rate_usd, status, ncaa_disclosed_at, jobs(title), contracts(id, talent_signed_at, client_signed_at)").eq("talent_id", acc.id).order("shoot_date"),
   ]);
-  const img = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/`;
   const v = (k: string) => p?.[k] ?? "";
   const sel = (name: string, label: string, opts: string[]) => (
     <label>{label}<select id={name} name={name} defaultValue={v(name)}>
@@ -100,7 +100,7 @@ export default async function TalentDashboard() {
       <PhotoUploader userId={acc.id} />
       <div className="photos">{media?.filter((m) => m.kind === "photo").map((m) => (
         <figure key={m.id}>
-          <img src={img + m.storage_path} alt="" loading="lazy" />
+          <img src={mediaUrl(m.storage_path)} alt="" loading="lazy" />
           <figcaption className="row">
             {p?.headshot_path === m.storage_path ? <span className="pill ready">Headshot</span> :
               <form action={setHeadshot}><input type="hidden" name="path" value={m.storage_path} /><button className="link-btn">Make headshot</button></form>}

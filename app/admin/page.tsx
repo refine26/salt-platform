@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireRole } from "@/lib/auth";
+import { mediaUrl } from "@/lib/media";
 import { supabaseServer } from "@/lib/supabase";
 import { reviewAccount, reviewCompany, reviewJob, moderateMedia, saveSetting } from "@/lib/actions";
 
@@ -110,12 +111,12 @@ async function Users({ sb, q }: { sb: any; q?: string }) {
 async function Media({ sb }: { sb: any }) {
   const { data } = await sb.from("media").select("id, kind, title, storage_path, mux_playback_id, flagged, created_at, talent_profiles(display_name, slug)")
     .neq("status", "removed").eq("status", "ready").order("flagged", { ascending: false }).order("created_at", { ascending: false }).limit(48);
-  const img = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/`;
   return <>
     <h2>Recent uploads</h2><p className="hint">Flagged items appear first.</p>
     <div className="photos">{data?.map((m: any) => <figure key={m.id} className={m.flagged ? "flagged" : ""}>
-      {m.kind === "photo" ? <img src={img + m.storage_path} alt="" loading="lazy" /> :
-        <img src={`https://image.mux.com/${m.mux_playback_id}/thumbnail.jpg?width=400`} alt="" loading="lazy" />}
+      {m.kind === "photo" ? <img src={mediaUrl(m.storage_path)} alt="" loading="lazy" /> :
+        m.mux_playback_id ? <img src={`https://image.mux.com/${m.mux_playback_id}/thumbnail.jpg?width=400`} alt="" loading="lazy" /> :
+        <video src={mediaUrl(m.storage_path)} muted preload="metadata" style={{ width: "100%", aspectRatio: "4/5", objectFit: "cover", borderRadius: 10 }} />}
       <figcaption><Link href={`/talent/${m.talent_profiles?.slug}`}>{m.talent_profiles?.display_name}</Link>
         <div className="row">
           {m.flagged && <form action={moderateMedia}><input type="hidden" name="id" value={m.id} /><input type="hidden" name="action" value="keep" /><button className="link-btn">Keep</button></form>}

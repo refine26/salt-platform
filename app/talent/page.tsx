@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase";
 import { OPTIONS, fmtHeight } from "@/lib/auth";
+import { mediaUrl } from "@/lib/media";
 
 const PAGE = 24;
 type SP = Promise<Record<string, string | string[] | undefined>>;
@@ -36,7 +37,6 @@ export default async function TalentSearch({ searchParams }: { searchParams: SP 
 
   const total = Number(data?.[0]?.total ?? 0);
   const pages = Math.ceil(total / PAGE);
-  const img = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/`;
   const qs = (p: number) => {
     const u = new URLSearchParams();
     Object.entries(sp).forEach(([k, v]) => ([] as string[]).concat(v ?? []).forEach((x) => k !== "page" && u.append(k, x)));
@@ -90,7 +90,7 @@ export default async function TalentSearch({ searchParams }: { searchParams: SP 
         <div className="grid">
           {data?.map((p: any) => (
             <Link key={p.slug} href={`/talent/${p.slug}`} className="card">
-              <div className="shot" style={p.headshot_path ? { backgroundImage: `url(${img}${p.headshot_path})` } : undefined}>
+              <div className="shot" style={p.headshot_path ? { backgroundImage: `url(${mediaUrl(p.headshot_path)})` } : undefined}>
                 <span className="tag">{[p.sport, p.level].filter(Boolean).join(" · ")}</span>
               </div>
               <div className="body">
