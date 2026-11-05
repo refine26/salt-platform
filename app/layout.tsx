@@ -2,7 +2,6 @@ import "./globals.css";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import { getAccount, dashboardFor } from "@/lib/auth";
-import { logout } from "@/lib/actions";
 
 export const metadata = {
   title: "SALT | Sports and Active Lifestyle Talent",
@@ -28,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {acc ? <>
               {acc.role === "admin" && <Link href="/admin" className="admin-link">Admin</Link>}
               <Link href={dashboardFor(acc.role)} className="btn">Dashboard</Link>
-              <form action={logout}><button className="link-btn">Sign out</button></form>
+              <form action="/auth/signout" method="post"><button className="link-btn">Sign out</button></form>
             </> : <>
               <Link href="/login">Sign in</Link>
               <Link href="/register" className="btn primary">Join</Link>
