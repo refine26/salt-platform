@@ -258,7 +258,7 @@ create or replace function search_talent(
 ) returns table (
   slug text, display_name text, sport text, level text, city text, state text,
   height_in int, day_rate int, headshot_path text, miles numeric, total bigint
-) language sql stable as $$
+) language sql stable security definer set search_path = public, extensions as $$
   with yr as (select extract(year from now())::int y),
   f as (
     select t.*, case when near_lat is not null and t.lat is not null
@@ -332,9 +332,11 @@ create policy acc_insert on accounts for insert with check (id = auth.uid() and 
 create policy acc_admin  on accounts for update using (is_admin());
 
 -- talent: approved public profiles visible to everyone; owner + admin always
+create or replace function is_approved(uid uuid) returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from accounts where id = uid and status = 'approved');
+$$;
 create policy tal_read on talent_profiles for select using (
-  (is_public and exists (select 1 from accounts a where a.id = talent_profiles.id and a.status = 'approved'))
-  or id = auth.uid() or is_admin());
+  (is_public and is_approved(id)) or id = auth.uid() or is_admin());
 create policy tal_ins on talent_profiles for insert with check (id = auth.uid());
 create policy tal_upd on talent_profiles for update using (id = auth.uid() or is_admin());
 
