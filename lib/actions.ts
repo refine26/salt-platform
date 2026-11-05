@@ -223,7 +223,7 @@ Talent: ${d.talent}
 Project: ${d.job}
 Shoot date: ${d.date ?? "To be confirmed"}${d.call ? `   Call time: ${d.call}` : ""}
 Location: ${d.location ?? "To be confirmed"}
-Fee: $${(d.rate ?? 0).toLocaleString()} USD, paid within 30 days of the shoot.
+Fee: $${(d.rate ?? 0).toLocaleString()} USD, paid through SALT within 30 days of the shoot. A 12% SALT service fee is deducted from the fee before payout to Talent.
 
 1. Services. Talent will appear in the project above and follow reasonable direction from Client's production team.
 2. Usage. ${d.usage ?? "Client may use the recorded material for the project's campaign for 12 months from first use, in the United States, across digital and print media."}

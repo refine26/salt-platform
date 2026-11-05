@@ -352,3 +352,13 @@ h3{font-family:var(--body);font-weight:700;font-size:19px;line-height:1.3}
 .seg label{position:relative}
 .seg input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .seg label:has(input:focus-visible){outline:3px solid var(--pop);outline-offset:2px}
+.fee-explainer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.fee-explainer>div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.fee-explainer .num{font:700 56px/1 var(--body);letter-spacing:-.03em;color:var(--accent)}
+.fee-explainer p{color:var(--muted);margin:8px 0 0}
+.fee-explainer dl{margin:0;display:grid;gap:8px}
+.fee-explainer dl div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.fee-explainer dt{color:var(--muted)} .fee-explainer dd{margin:0;font-weight:700}
+.fee-explainer .total{border-top:1px solid var(--line);padding-top:8px}
+.fee-explainer .total dt{color:var(--ink);font-weight:700}
+@media(max-width:700px){.fee-explainer{grid-template-columns:1fr}}

@@ -5,7 +5,7 @@ import { getAccount, dashboardFor } from "@/lib/auth";
 
 export const metadata = {
   title: "SALT | Sports and Active Lifestyle Talent",
-  description: "Book real athletes for print, commercial, social and appearance work.",
+  description: "Book athletes and active lifestyle talent for print, commercial, social and appearance work.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
