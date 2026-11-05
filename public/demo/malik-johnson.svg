@@ -4,6 +4,6 @@
 <rect width="800" height="1000" fill="url(#g)"/><circle cx="400" cy="380" r="150" fill="url(#s)"/>
 <path d="M130 1000 C130 760 250 600 400 600 C550 600 670 760 670 1000 Z" fill="url(#s)"/>
 <text x="400" y="430" text-anchor="middle" font-family="Impact, 'Arial Narrow', sans-serif" font-size="150" fill="#5a1d06">MJ</text>
-<rect x="40" y="40" rx="10" width="397" height="52" fill="#000" fill-opacity=".55"/>
-<text x="60" y="76" font-family="Menlo, monospace" font-size="26" fill="#fff" letter-spacing="2">WHEELCHAIR BASKETBALL</text>
+<rect x="40" y="40" rx="10" width="210" height="52" fill="#000" fill-opacity=".55"/>
+<text x="60" y="76" font-family="Menlo, monospace" font-size="26" fill="#fff" letter-spacing="2">BASKETBALL</text>
 <text x="760" y="960" text-anchor="end" font-family="Menlo, monospace" font-size="20" fill="#fff" fill-opacity=".7">DEMO PLACEHOLDER</text></svg>
