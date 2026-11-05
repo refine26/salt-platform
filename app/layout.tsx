@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <header className="nav">
-          <Link href="/" className="logo" aria-label="SALT home"><img src="/salt-logo.png" alt="SALT: Sports Active Lifestyle Talent" width="955" height="365" /></Link>
+          <Link href="/" className="logo" aria-label="SALT home"><img src="/salt-wordmark.svg" alt="SALT: Sports Active Lifestyle Talent" width="3820" height="1110" /></Link>
           <nav className="links">
             <Link href="/talent">Talent</Link>
             <Link href="/jobs">Jobs</Link>
@@ -33,6 +33,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Link href="/register" className="btn primary">Join</Link>
             </>}
           </nav>
+          <details className="mnav">
+            <summary aria-label="Menu"><span /><span /><span /></summary>
+            <div className="mnav-panel">
+              <Link href="/talent">Talent</Link>
+              <Link href="/jobs">Jobs</Link>
+              <Link href="/pricing">Pricing</Link>
+              <Link href="/about">About</Link>
+              {acc ? <>
+                {acc.role === "admin" && <Link href="/admin">Admin</Link>}
+                <Link href={dashboardFor(acc.role)}>Dashboard</Link>
+                <form action="/auth/signout" method="post"><button className="link-btn">Sign out</button></form>
+              </> : <>
+                <Link href="/login">Sign in</Link>
+                <Link href="/register" className="btn primary">Join SALT</Link>
+              </>}
+            </div>
+          </details>
         </header>
         {acc && acc.status !== "approved" && acc.role !== "admin" && (
           <div className="banner">Your account is {acc.status}. The SALT team reviews new accounts, usually within 1 business day.</div>
