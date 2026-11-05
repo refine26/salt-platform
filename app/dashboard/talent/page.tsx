@@ -5,9 +5,11 @@ import { saveTalentProfile, deleteMedia, setHeadshot, withdrawApplication } from
 import VideoUploader from "@/components/VideoUploader";
 import PhotoUploader from "@/components/PhotoUploader";
 import { mediaUrl } from "@/lib/media";
+import { syncPendingVideos } from "@/lib/mux-sync";
 
 export default async function TalentDashboard() {
   const acc = await requireRole("talent");
+  await syncPendingVideos(acc.id);
   const sb = await supabaseServer();
   const [{ data: p }, { data: media }, { data: apps }, { data: bookings }] = await Promise.all([
     sb.from("talent_profiles").select("*").eq("id", acc.id).single(),
