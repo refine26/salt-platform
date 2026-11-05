@@ -43,5 +43,5 @@ export const OPTIONS = {
   hairColor: ["Black", "Brown", "Blonde", "Red", "Gray", "Other"],
   hairLength: ["bald", "buzz", "short", "medium", "long"],
   eyeColor: ["Brown", "Blue", "Green", "Hazel", "Gray", "Other"],
-  level: ["NCAA D1", "NCAA D2", "NCAA D3", "NAIA", "JUCO", "Professional", "Olympic", "Club / Amateur"],
+  level: ["NCAA D1", "NCAA D2", "NCAA D3", "NAIA", "JUCO", "Professional", "Olympic", "Masters", "Adaptive / Para", "Fitness professional", "Club / Amateur", "Everyday active"],
 };
