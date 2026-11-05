@@ -2,8 +2,7 @@ import Link from "next/link";
 export const metadata = { title: "Pricing | SALT" };
 
 const TALENT = [
-  { name: "Starter", price: "Free", per: "", items: ["Profile with 6 photos and 1 reel", "Submit to 5 jobs per month", "Online contracts"] },
-  { name: "Pro", price: "$12", per: "/month", items: ["20 photos and 5 reels", "Unlimited submissions", "Priority placement in search", "Self-tape uploads"], featured: true },
+  { name: "Athlete membership", price: "$79", per: "/year", items: ["Verified athlete profile", "20 photos and 5 reels", "Unlimited job submissions", "Self-tape uploads", "Online contracts", "Keep 100% of your rate"], featured: true },
 ];
 const CLIENTS = [
   { name: "Per job", price: "$99", per: "/posting", items: ["1 breakdown, open 30 days", "Full talent search", "Unlimited applicants"] },

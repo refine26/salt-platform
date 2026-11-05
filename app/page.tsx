@@ -13,7 +13,7 @@ const USES = [
 const COMPARE: [string, string, string, string][] = [
   ["Athletic ability verified", "Yes, every athlete", "Sometimes", "No"],
   ["Cost to brands", "10% service fee", "10–40% commission", "Subscription or per-post fee"],
-  ["Cost to athletes", "Free to join", "Commission on earnings", "Often $12–$30/month to apply"],
+  ["Cost to athletes", "$79/year, no commission", "Commission on earnings", "Often $12–$30/month to apply"],
   ["Search by sport, level and skill", "Yes", "Rarely", "No"],
   ["Contracts and NIL disclosure built in", "Yes", "Handled offline", "No"],
   ["Time to first shortlist", "Same day", "Days", "Days"],
@@ -23,7 +23,7 @@ const FAQ: [string, string][] = [
   ["Who can join as talent?", "Current and former NCAA, NAIA, JUCO, professional and Olympic athletes, plus serious club competitors. Every profile is reviewed by the SALT team before it goes live."],
   ["How does a brand book someone?", "Post a breakdown or search the roster directly, shortlist athletes, and click Book. SALT generates the agreement with your rate, dates and usage terms, and both sides sign online."],
   ["Can current college athletes work through SALT?", "Yes. Athletes flag their NCAA status and school compliance contact, brands can mark jobs as closed to current athletes, and every agreement includes an NIL disclosure clause."],
-  ["What does it cost?", "Athletes join free. Brands pay per job post or a monthly team plan, plus a 10% service fee on bookings. Athletes keep 100% of their quoted rate."],
+  ["What does it cost?", "Athletes pay $79 a year for a membership with unlimited submissions. Brands pay per job post or a monthly team plan, plus a 10% service fee on bookings. Athletes keep 100% of their quoted rate."],
 ];
 
 export default async function Home() {
@@ -46,7 +46,7 @@ export default async function Home() {
             <Link className="btn primary lg" href="/talent">Browse athletes</Link>
             <Link className="btn lg" href="/register">Post a job</Link>
           </div>
-          <p className="fine">Athletes join free. <Link href="/register">Create a profile →</Link></p>
+          <p className="fine">Athlete membership is $79 a year. <Link href="/pricing">See pricing →</Link></p>
         </div>
         <div className="p-hero-cards">
           {heroCards.map((p: any) => (
@@ -66,7 +66,7 @@ export default async function Home() {
         <div><span className="num">{(talentCount ?? 0).toLocaleString()}</span><span>Verified athletes</span></div>
         <div><span className="num">{(jobCount ?? 0).toLocaleString()}</span><span>Open jobs</span></div>
         <div><span className="num">10%</span><span>Flat brand fee</span></div>
-        <div><span className="num">$0</span><span>For athletes to join</span></div>
+        <div><span className="num">$79</span><span>Per year for athletes</span></div>
       </div>
 
 
