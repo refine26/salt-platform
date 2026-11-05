@@ -43,7 +43,7 @@ export default async function TalentProfile({ params }: { params: Promise<{ slug
 
       {p.bio && <p className="prose">{p.bio}</p>}
       <div className="chips">
-        {(p.gig_types ?? []).map((g: string) => <span key={g} className="gig">{g}</span>)}
+        {(p.gig_types ?? []).map((g: string) => <span key={g} className="chip-gig">{g}</span>)}
         {(p.skills ?? []).map((s: string) => <span key={s}>{s}</span>)}
       </div>
 
