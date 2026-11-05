@@ -89,14 +89,14 @@ export default async function TalentSearch({ searchParams }: { searchParams: SP 
           {one(sp.zip) && !near && " · ZIP not found, showing all locations"}</p>
         <div className="grid">
           {data?.map((p: any) => (
-            <Link key={p.slug} href={`/talent/${p.slug}`} className="card">
-              <div className="shot" style={p.headshot_path ? { backgroundImage: `url(${mediaUrl(p.headshot_path)})` } : undefined}>
+            <Link key={p.slug} href={`/talent/${p.slug}`} className="tcard">
+              <div className="tcard-img" style={p.headshot_path ? { backgroundImage: `url(${mediaUrl(p.headshot_path)})` } : undefined} />
+              <div className="tcard-overlay">
                 <span className="tag">{[p.sport, p.level].filter(Boolean).join(" · ")}</span>
-              </div>
-              <div className="body">
-                <h3>{p.display_name}</h3>
-                <p className="hint">{[p.city, p.state].filter(Boolean).join(", ")}{p.miles != null && ` · ${p.miles} mi`}</p>
-                <p className="meta"><span>{fmtHeight(p.height_in)}</span>{p.day_rate && <span className="mono">${p.day_rate.toLocaleString()}/day</span>}</p>
+                <strong>{p.display_name}</strong>
+                <span>{[fmtHeight(p.height_in), [p.city, p.state].filter(Boolean).join(", ")].filter((x) => x && x !== "—").join(" · ")}
+                  {p.miles != null && ` · ${p.miles} mi`}</span>
+                {p.day_rate && <span className="rate">${p.day_rate.toLocaleString()}/day</span>}
               </div>
             </Link>
           ))}
