@@ -3,9 +3,6 @@ import { supabaseServer } from "@/lib/supabase";
 import { mediaUrl } from "@/lib/media";
 import { fmtHeight } from "@/lib/auth";
 
-const SPORTS = ["Soccer", "Track & Field", "Basketball", "Swimming", "Volleyball", "Tennis", "Football",
-  "Baseball", "Gymnastics", "CrossFit", "Lacrosse", "Softball", "Surf", "Golf"];
-
 const USES = [
   ["Product & e-commerce", "Footwear, apparel and gear shot on people who actually train in it."],
   ["Commercials", "TV, streaming and pre-roll with real athletic action on cue."],
@@ -72,11 +69,6 @@ export default async function Home() {
         <div><span className="num">$0</span><span>For athletes to join</span></div>
       </div>
 
-      <div className="ticker" aria-label="Sports on SALT">
-        <div className="ticker-track">
-          {[...SPORTS, ...SPORTS].map((s, i) => <span key={i}>{s}<b>●</b></span>)}
-        </div>
-      </div>
 
       <section>
         <div className="section-head">
