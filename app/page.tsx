@@ -41,7 +41,7 @@ export default async function Home() {
         </div>
         <div className="card-stack" aria-hidden={stack.length === 0}>
           {stack.map((p: any, i: number) => (
-            <Link key={p.slug} href={`/talent/${p.slug}`} className={`tcard tilt-${i}`}>
+            <Link key={p.slug} href={`/talent/${p.slug}`} className="tcard">
               <div className="tcard-img" style={p.headshot_path ? { backgroundImage: `url(${mediaUrl(p.headshot_path)})` } : undefined} />
               <div className="tcard-overlay">
                 <span className="tag">{p.sport}</span>
