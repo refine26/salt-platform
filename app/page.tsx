@@ -113,7 +113,7 @@ export default async function Home() {
       </section>
 
       <section>
-        <div className="section-head"><div><p className="eyebrow">Why SALT</p><h2>Built for athletic casting</h2></div></div>
+        <div className="section-head"><div><p className="eyebrow">Why SALT</p><h2>Built for sports and lifestyle casting</h2></div></div>
         <div className="table-wrap">
           <table className="compare">
             <thead><tr><th /><th className="us">SALT</th><th>Traditional agency</th><th>General model marketplaces</th></tr></thead>
